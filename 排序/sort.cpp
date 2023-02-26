@@ -1,6 +1,5 @@
 #include<iostream>
 using namespace std;
-//2021412011韩磊 作业
 //主要使用C语言，使用了部分C++特性
 void print_arr(int arr[],int len);
 void bubble_sort(int arr[], int len)//冒泡排序
@@ -69,11 +68,29 @@ void quick_sort(int arr[],int low,int high)//快速排序
 
     }
 }
-void merge_sort(int arr[],int len)//归并排序
+int len;
+int *b = new int[len];
+void merge(int arr[],int temp[],int low,int mid,int high)//归并操作
 {
-    
+    int i,j,k;
+    for(k = low;k <= high;k++) temp[k] = arr[k];
+    for(i = low,j = mid+1,k = low;i <= mid && j <= high && k <= high;k++){
+        if(temp[i] <= temp[j]) arr[k] = temp[i++];
+        else arr[k] = temp[j++];
+    }
+    while(i <= low) arr[k++] = temp[i++];
+    while(j <= high) arr[k++] = temp[j++];
 }
-void print_arr(int arr[],int len)
+void merge_sort(int arr[],int temp[],int low,int high)//归并排序
+{
+    if(low < high){
+        int mid = (low + high) / 2;
+        merge_sort(arr,temp,low,mid);
+        merge_sort(arr,temp,mid+1,high);
+        merge(arr,temp,low,mid,high);
+    }
+}
+void print_arr(int arr[],int len)//打印数组
 {
     for(int i=0;i<len;i++){
         cout << arr[i] << " ";
@@ -84,5 +101,8 @@ int main()
 {
     int arr[] = { 2,32,10,8,26,13 };
     int len = sizeof(arr) / sizeof(arr[0]);
+    int *temp = new int[len];
+    merge_sort(arr,temp,0,len);
+    print_arr(arr,len);
     return 0;
 }
