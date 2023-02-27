@@ -59,7 +59,7 @@ int partition(int arr[], int low, int high)//快速排序-划分
     arr[low] = pivot;
     return low;
 }
-void quick_sort(int arr[], int low, int high)//快速排序
+void quick_sort(int arr[], int low, int high)//快速排序,high传len-1
 {
 
     if (low < high) {
@@ -82,7 +82,7 @@ void merge(int arr[], int temp[], int low, int mid, int high)//归并操作
     while (i <= low) arr[k++] = temp[i++];
     while (j <= high) arr[k++] = temp[j++];
 }
-void merge_sort(int arr[], int temp[], int low, int high)//归并排序
+void merge_sort(int arr[], int temp[], int low, int high)//归并排序,high传len-1
 {
     if (low < high) {
         int mid = (low + high) / 2;
@@ -100,10 +100,10 @@ void print_arr(int arr[], int len)//打印数组
 }
 int main()
 {
-    int arr[] = {2,32,10,8,26,13};
+    int arr[] = {2,32,10,8,26,13,70,41};
     int len = sizeof(arr) / sizeof(arr[0]);
     int* temp = new int[len];
-    merge_sort(arr, temp, 0, len);
+    merge_sort(arr, temp, 0, len-1);
     print_arr(arr, len);
     return 0;
 }
