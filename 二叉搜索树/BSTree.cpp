@@ -1,10 +1,6 @@
 #include<iostream>
 #include<queue>
 using namespace std;
-inline int Max(int a,int b)
-{
-    return a>b?a:b;
-}
 typedef struct TreeNode //定义
 {
     int data;
@@ -70,7 +66,7 @@ int Height(Tree T) //求高度
     if(T==NULL) return -1;
     int LeftHeight = Height(T->left);
     int RightHeight = Height(T->right);
-    return Max(LeftHeight,RightHeight)+1;
+    return max(LeftHeight,RightHeight)+1;
 }
 void LevelOrder(Tree T) //层序遍历
 {
@@ -88,7 +84,6 @@ void LevelOrder(Tree T) //层序遍历
 void Delete(Tree &T,int data) //删除一个结点
 {
     if(T==NULL) cout << "Empty" << endl;
-    cout << T->data << endl;
     if(data < T->data)
     {
         Delete(T->left,data);
@@ -102,23 +97,17 @@ void Delete(Tree &T,int data) //删除一个结点
         if(T->left == NULL && T->right == NULL)
         {
             delete T;
-            // cout << T->data <<" deleted.(1)" <<endl;
-            // T = NULL;
         }
         else if(T->left == NULL)
         {
             TreeNode *temp = T;
-            // cout << temp->data <<" deleted.(2)" <<endl;
             T = T->right;
-            // temp = NULL;
             delete temp;
         }
         else if(T->right ==NULL)
         {
             TreeNode *temp =T;
-            // cout << temp->data <<" deleted.(3)" <<endl;
             T = T->left;
-            // temp = NULL;
             delete temp;
         }
         else
@@ -137,6 +126,11 @@ int main()
     Insert(T,3);
     Insert(T,2);
     Insert(T,5);
-    LevelOrder(T);
+    try{
+        Search(T,4);
+    }
+    catch(const char *msg){
+        cout << msg;
+    }
     return 0;
 }
