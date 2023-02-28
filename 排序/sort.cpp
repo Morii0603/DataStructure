@@ -1,6 +1,5 @@
 #include<iostream>
 using namespace std;
-//2021412011韩磊 作业
 //主要使用C语言，使用了部分C++特性
 void print_arr(int arr[], int len);
 void bubble_sort(int arr[], int len)//冒泡排序
@@ -69,14 +68,12 @@ void quick_sort(int arr[], int low, int high)//快速排序,high传len-1
 
     }
 }
-int len;
-int* b = new int[len];
 void merge(int arr[], int temp[], int low, int mid, int high)//归并操作
 {
     int i, j, k;
     for (k = low; k <= high; k++) temp[k] = arr[k];
     for (i = low, j = mid + 1, k = low; i <= mid && j <= high && k <= high; k++) {
-        if (temp[i] <= temp[j]) arr[k] = temp[i++];
+        if (temp[i] < temp[j]) arr[k] = temp[i++];
         else arr[k] = temp[j++];
     }
     while (i <= low) arr[k++] = temp[i++];
@@ -91,6 +88,22 @@ void merge_sort(int arr[], int temp[], int low, int high)//归并排序,high传l
         merge(arr, temp, low, mid, high);
     }
 }
+void choice_sort(int arr[], int len) //选择排序
+{
+    int min_pos = 0;
+    for (int i = 0; i < len ; i ++ )
+    {
+        min_pos = i;
+        for(int j = i; j < len ; j ++ )
+        {
+            if(arr[j] < arr[min_pos])
+            {
+                min_pos = j;
+            }
+        }
+        if (min_pos != i) swap(arr[min_pos], arr[i]);
+    }
+}
 void print_arr(int arr[], int len)//打印数组
 {
     for (int i = 0; i < len; i++) {
@@ -100,10 +113,10 @@ void print_arr(int arr[], int len)//打印数组
 }
 int main()
 {
-    int arr[] = {2,32,10,8,26,13,70,41};
+    int arr[] = {46,74,53,14,26,38,86,65,27,34};
     int len = sizeof(arr) / sizeof(arr[0]);
     int* temp = new int[len];
-    merge_sort(arr, temp, 0, len-1);
+    choice_sort(arr, len);
     print_arr(arr, len);
     return 0;
 }
